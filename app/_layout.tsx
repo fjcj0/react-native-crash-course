@@ -1,11 +1,59 @@
-import { Stack } from "expo-router";
+import { AuthProvider, useAuth } from "@/lib/auth-context";
+import { Stack, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
+function MainLayout() {
+  const router = useRouter();
+  const { user, loading } = useAuth();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  useEffect(() => {
+    if (!mounted || loading) return;
+    if (!user) {
+      router.replace("/login");
+    } else {
+      router.replace("/(tabs)");
+    }
+  }, [user, loading, mounted]);
+  if (!mounted || loading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+  return (
+    <Stack
+      screenOptions={{
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+      }}
+    >
+      <Stack.Screen
+        name="index"
+        options={{ title: "Auth", headerShown: false }}
+      />
+      <Stack.Screen
+        name="login"
+        options={{ title: "Login", headerShown: false }}
+      />
+      <Stack.Screen
+        name="signup"
+        options={{ title: "SignUp", headerShown: false }}
+      />
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false, title: "Tabs" }}
+      />
+    </Stack>
+  );
+}
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Start", headerShown: false }} />
-      <Stack.Screen name="login" options={{ title: "Login", headerShown: false }} />
-      <Stack.Screen name="signup" options={{ title: "SignUp", headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false, title: "Tabs" }} />
-    </Stack>
+    <AuthProvider>
+      <MainLayout />
+    </AuthProvider>
   );
 }
