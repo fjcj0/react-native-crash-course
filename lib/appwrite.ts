@@ -11,3 +11,5 @@ export const databases = new Databases(client);
 
 export const DATABASE_ID = process.env.EXPO_PUBLIC_DB_ID!;
 export const HABITS_TABLE = process.env.EXPO_PUBLIC_TABLE_ID!;
+
+export const COMPLETION_TABLE = process.env.EXPO_PUBLIC_COMPLETIONS_TABLE_ID!;
