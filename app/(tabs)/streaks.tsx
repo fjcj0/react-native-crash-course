@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-const profile = () => {
+const streaks = () => {
     return (
         <SafeAreaView>
             <View>
-                <Text>profile</Text>
+                <Text>streaks</Text>
             </View>
         </SafeAreaView>
     );
 }
-export default profile;
+export default streaks;
