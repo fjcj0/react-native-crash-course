@@ -38,7 +38,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const signUp = async (email: string, password: string) => {
         try {
             await account.create(ID.unique(), email, password);
-            await signIn(email, password);
+            const session = await account.get();
+            setUser(session);
             return null;
         } catch (error) {
             if (error instanceof Error) return error.message;
