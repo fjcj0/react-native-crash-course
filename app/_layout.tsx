@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaView } from "react-native-safe-area-context";
-;
 function MainLayout() {
   const router = useRouter();
   const { user, loading } = useAuth();
@@ -15,7 +14,7 @@ function MainLayout() {
   useEffect(() => {
     if (!mounted || loading) return;
     if (!user) {
-      router.replace("/login");
+      router.replace("/");
     } else {
       router.replace("/(tabs)");
     }
