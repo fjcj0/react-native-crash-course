@@ -44,6 +44,23 @@ export default function Index() {
           <Text style={{ color: "white", fontWeight: "bold" }}>Signup Page</Text>
         </TouchableOpacity>
       </Link>
+
+      <Link href="/(tabs)" style={{
+        marginTop: 10,
+      }} asChild>
+        <TouchableOpacity
+          style={{
+            width: 200,
+            height: 50,
+            backgroundColor: "coral",
+            borderRadius: 15,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>Go to tabs</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }
