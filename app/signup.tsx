@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, ImageStyle, KeyboardAvoidingView, Platform, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Signup = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,53 +32,51 @@ const Signup = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={styles.container}
-            >
-                <View style={styles.imageContainer}>
-                    <Image source={require('../assets/images/19199035.jpg')} style={styles.image} />
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+        >
+            <View style={styles.imageContainer}>
+                <Image source={require('../assets/images/19199035.jpg')} style={styles.image} />
+            </View>
+            <View style={styles.form}>
+                <Text style={styles.title}>Create Account</Text>
+                <TextInput
+                    label="Email"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    mode="outlined"
+                    style={styles.input}
+                    onChangeText={setEmail}
+                    value={email}
+                />
+                <TextInput
+                    label="Password"
+                    autoCapitalize="none"
+                    secureTextEntry
+                    mode="outlined"
+                    style={styles.input}
+                    onChangeText={setPassword}
+                    value={password}
+                />
+                <Button
+                    mode="contained"
+                    disabled={isLoading}
+                    onPress={handleSignUp}
+                    style={[styles.button, { opacity: isLoading ? 0.5 : 1 }]}
+                >
+                    {isLoading ? '...' : 'Sign Up'}
+                </Button>
+                <Button mode="text" onPress={() => router.push('/login')}>
+                    Already have an account? Sign In
+                </Button>
+            </View>
+            {error && (
+                <View style={styles.errorContainer}>
+                    <Text style={styles.textError}>{error}</Text>
                 </View>
-                <View style={styles.form}>
-                    <Text style={styles.title}>Create Account</Text>
-                    <TextInput
-                        label="Email"
-                        autoCapitalize="none"
-                        keyboardType="email-address"
-                        mode="outlined"
-                        style={styles.input}
-                        onChangeText={setEmail}
-                        value={email}
-                    />
-                    <TextInput
-                        label="Password"
-                        autoCapitalize="none"
-                        secureTextEntry
-                        mode="outlined"
-                        style={styles.input}
-                        onChangeText={setPassword}
-                        value={password}
-                    />
-                    <Button
-                        mode="contained"
-                        disabled={isLoading}
-                        onPress={handleSignUp}
-                        style={[styles.button, { opacity: isLoading ? 0.5 : 1 }]}
-                    >
-                        {isLoading ? '...' : 'Sign Up'}
-                    </Button>
-                    <Button mode="text" onPress={() => router.push('/login')}>
-                        Already have an account? Sign In
-                    </Button>
-                </View>
-                {error && (
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.textError}>{error}</Text>
-                    </View>
-                )}
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+            )}
+        </KeyboardAvoidingView>
     );
 };
 

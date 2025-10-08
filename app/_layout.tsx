@@ -2,6 +2,9 @@ import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaView } from "react-native-safe-area-context";
+;
 function MainLayout() {
   const router = useRouter();
   const { user, loading } = useAuth();
@@ -25,29 +28,33 @@ function MainLayout() {
     );
   }
   return (
-    <Stack
-      screenOptions={{
-        gestureEnabled: true,
-        gestureDirection: "horizontal",
-      }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{ title: "Auth", headerShown: false }}
-      />
-      <Stack.Screen
-        name="login"
-        options={{ title: "Login", headerShown: false }}
-      />
-      <Stack.Screen
-        name="signup"
-        options={{ title: "SignUp", headerShown: false }}
-      />
-      <Stack.Screen
-        name="(tabs)"
-        options={{ headerShown: false, title: "Tabs" }}
-      />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack
+          screenOptions={{
+            gestureEnabled: true,
+            gestureDirection: "horizontal",
+          }}
+        >
+          <Stack.Screen
+            name="index"
+            options={{ title: "Auth", headerShown: false }}
+          />
+          <Stack.Screen
+            name="login"
+            options={{ title: "Login", headerShown: false }}
+          />
+          <Stack.Screen
+            name="signup"
+            options={{ title: "SignUp", headerShown: false }}
+          />
+          <Stack.Screen
+            name="(tabs)"
+            options={{ headerShown: false, title: "Tabs" }}
+          />
+        </Stack>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 export default function RootLayout() {
